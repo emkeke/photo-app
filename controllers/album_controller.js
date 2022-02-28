@@ -29,7 +29,8 @@
   */
  const show = async (req, res) => {
      const album = await new models.Album({ id: req.params.albumId })
-         .fetch({ withRelated: ['photos', 'user'] });
+         .fetch();
+         //{ withRelated: ['photos', 'user'] }
  
      res.send({
          status: 'success',
