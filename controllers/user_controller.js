@@ -1,8 +1,8 @@
 /**
- * Album Controller
+ * User Controller
  */
 
- const debug = require('debug')('albums:album_controller');
+ const debug = require('debug')('albums:user_controller');
  const models = require('../models');
  const { matchedData, validationResult } = require('express-validator');
  
