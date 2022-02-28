@@ -12,12 +12,12 @@
   * GET /
   */
  const index = async (req, res) => {
-     const all_users = await models.User.fetchAll();
+     const all_albums = await models.Album.fetchAll();
  
      res.send({
          status: 'success',
          data: {
-             users: all_users
+             users: all_albums
          }
      });
  }
@@ -25,16 +25,16 @@
  /**
   * Get a specific resource
   *
-  * GET /:userId
+  * GET /:albumId
   */
  const show = async (req, res) => {
-     const user = await new models.User({ id: req.params.userId })
-         .fetch({ withRelated: ['books'] });
+     const album = await new models.Album({ id: req.params.albumId })
+         .fetch({ withRelated: ['photos', 'user'] });
  
      res.send({
          status: 'success',
          data: {
-             user,
+             album,
          }
      });
  }
@@ -62,20 +62,20 @@
      const validData = matchedData(req);
  
      try {
-         const user = await new models.User(validData).save();
-         debug("Created new user successfully: %O", user);
+         const album = await new models.Album(validData).save();
+         debug("Created new album successfully: %O", album);
  
          res.send({
              status: 'success',
              data: {
-                 user,
+                 album,
              },
          });
  
      } catch (error) {
          res.status(500).send({
              status: 'error',
-             message: 'Exception thrown in database when creating a new user.',
+             message: 'Exception thrown in database when creating a new album.',
          });
          throw error;
      }
@@ -87,15 +87,15 @@
   * POST /:userId
   */
  const update = async (req, res) => {
-     const userId = req.params.userId;
+     const albumId = req.params.albumId;
  
      // make sure user exists
-     const user = await new models.User({ id: userId }).fetch({ require: false });
-     if (!user) {
-         debug("User to update was not found. %o", { id: userId });
+     const album = await new models.Album({ id: albumId }).fetch({ require: false });
+     if (!album) {
+         debug("Album to update was not found. %o", { id: albumId });
          res.status(404).send({
              status: 'fail',
-             data: 'User Not Found',
+             data: 'Album Not Found',
          });
          return;
      }
@@ -126,20 +126,20 @@
  
  
      try {
-         const updatedUser = await user.save(validData);
-         debug("Updated user successfully: %O", updatedUser);
+         const updatedAlbum = await album.save(validData);
+         debug("Updated album successfully: %O", updatedAlbum);
  
          res.send({
              status: 'success',
              data: {
-                 user,
+                 album,
              },
          });
  
      } catch (error) {
          res.status(500).send({
              status: 'error',
-             message: 'Exception thrown in database when updating a new user.',
+             message: 'Exception thrown in database when updating a new album.',
          });
          throw error;
      }
