@@ -1,5 +1,5 @@
 /**
- * Album Controller
+ * Album Controller 🗂
  */
 
  const debug = require('debug')('albums:album_controller');

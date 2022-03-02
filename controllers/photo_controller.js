@@ -1,5 +1,5 @@
 /**
- * Album Controller
+ * Photo Controller 📷
  */
 
  const debug = require('debug')('albums:album_controller');

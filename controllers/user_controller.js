@@ -1,5 +1,5 @@
 /**
- * User Controller
+ * User Controller 🤓
  */
 
  const debug = require('debug')('albums:user_controller');
