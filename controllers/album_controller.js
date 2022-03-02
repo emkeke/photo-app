@@ -4,7 +4,7 @@
 
  const debug = require('debug')('albums:album_controller');
  const models = require('../models');
- const { matchedData, validationResult } = require('express-validator');
+ //const { matchedData, validationResult } = require('express-validator');
  
  /**
   * GET ALL 

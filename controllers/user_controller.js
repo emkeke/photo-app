@@ -4,7 +4,7 @@
 
  const debug = require('debug')('albums:user_controller');
  const models = require('../models');
- const { matchedData, validationResult } = require('express-validator');
+ //const { matchedData, validationResult } = require('express-validator');
  
  /**
   * GET ALL
@@ -29,7 +29,8 @@
   */
  const show = async (req, res) => {
      const user = await new models.User({ id: req.params.userId })
-         .fetch({ withRelated: ['albums'] });
+         .fetch();
+         //{ withRelated: ['albums'] }
  
      res.send({
          status: 'success',

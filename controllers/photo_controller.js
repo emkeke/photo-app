@@ -4,7 +4,7 @@
 
  const debug = require('debug')('albums:photo_controller');
  const models = require('../models');
- const { matchedData, validationResult } = require('express-validator');
+ //const { matchedData, validationResult } = require('express-validator');
  
  /**
   * GET ALL
@@ -28,8 +28,8 @@
   * GET /:albumId
   */
  const show = async (req, res) => {
-     const photo = await models.Photo({ id: req.params.photoId })
-         .fetch({ withRelated: ['album', 'user'] });
+     const photo = await new models.Photo({ id: req.params.photoId })
+         .fetch();
          //{ withRelated: ['album', 'user'] }
  
      res.send({
