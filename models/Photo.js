@@ -3,9 +3,11 @@ module.exports = (bookshelf) => {
 		tableName: 'photos',
 		albums() {
 			return this.belongsTo('Album');
-		},
+		}
+		/*,
 		users() {
 			return this.belongsTo('User');
 		}
+		*/
 	});
 }

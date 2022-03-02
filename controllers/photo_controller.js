@@ -2,7 +2,7 @@
  * Photo Controller 📷
  */
 
- const debug = require('debug')('albums:album_controller');
+ const debug = require('debug')('albums:photo_controller');
  const models = require('../models');
  const { matchedData, validationResult } = require('express-validator');
  
@@ -12,12 +12,12 @@
   * GET /
   */
  const index = async (req, res) => {
-     const all_albums = await models.Album.fetchAll();
+     const all_photos = await models.Photo.fetchAll();
  
      res.send({
          status: 'success',
          data: {
-             users: all_albums
+             photos: all_photos
          }
      });
  }
@@ -28,14 +28,14 @@
   * GET /:albumId
   */
  const show = async (req, res) => {
-     const album = await new models.Album({ id: req.params.albumId })
-         .fetch();
-         //{ withRelated: ['photos', 'user'] }
+     const photo = await models.Photo({ id: req.params.photoId })
+         .fetch({ withRelated: ['album', 'user'] });
+         //{ withRelated: ['album', 'user'] }
  
      res.send({
          status: 'success',
          data: {
-             album,
+             photo,
          }
      });
  }
