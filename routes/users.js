@@ -15,4 +15,7 @@ router.post('/', userController.store);
 /* PUT update album */
 router.put('/:userId', userController.update);
 
+/* Destroy a specific resource */
+router.delete('/:userId', userController.destroy);
+
 module.exports = router;

@@ -15,5 +15,8 @@ router.post('/', albumController.store);
 /* PUT update album */
 router.put('/:albumId', albumController.update);
 
+/* Destroy a specific resource */
+router.delete('/:albumId', albumController.destroy);
+
 
 module.exports = router;

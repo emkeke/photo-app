@@ -15,4 +15,7 @@ router.post('/', photoController.store);
 /* PUT update photo */
 router.put('/:photoId', photoController.update);
 
+/* Destroy a specific resource */
+router.delete('/:photoId', photoController.destroy);
+
 module.exports = router;

@@ -106,6 +106,19 @@
     }
 }
 
+
+/**
+ * Destroy/ delete and specific user
+ *
+ * DELETE /:userId
+ */
+ const destroy = (req, res) => {
+    res.status(405).send({
+        status: 'fail',
+        message: 'Method Not Allowed.',
+    });
+}
+ 
  
  
  
@@ -114,6 +127,6 @@
      show,
      store,
      update,
-     //destroy,
+     destroy,
  }
  
