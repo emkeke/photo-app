@@ -12,5 +12,8 @@ router.get('/:albumId', albumController.show);
 /* POST new album */
 router.post('/', albumController.store);
 
+/* PUT update album */
+router.put('/:albumId', albumController.update);
+
 
 module.exports = router;

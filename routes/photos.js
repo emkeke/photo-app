@@ -12,4 +12,7 @@ router.get('/:photoId', photoController.show);
 /* POST new photo */
 router.post('/', photoController.store);
 
+/* PUT update photo */
+router.put('/:photoId', photoController.update);
+
 module.exports = router;

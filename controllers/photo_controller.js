@@ -66,12 +66,53 @@
        }
 }
 
+/**
+  * Update an photo
+  *
+  * PUT /:photoId
+  */
+
+ const update = async (req, res) => {
+    const photoId = req.params.photoId;
+
+    const photo = await new models.Photo({ id: photoId }).fetch({ require: false });
+	if (!photo) {
+		debug("Photo to update was not found. %o", { id: photoId });
+		res.status(404).send({
+			status: 'fail',
+			data: 'Photo Not Found',
+		});
+		return;
+	}
+
+
+    try {
+        const updated_photo = await photo.save(req.body);
+        debug("Updated photo successfully: %O", updated_photo);
+
+        res.send({
+            status: 'success',
+            data: {
+                photo,
+            },
+        });
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown in database when updating a new photo.',
+        });
+        throw error;
+    }
+}
+ 
+
  
 
  module.exports = {
     index,
     show,
     store,
-    //update,
+    update,
     //destroy,
 }

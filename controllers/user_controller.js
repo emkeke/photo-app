@@ -66,6 +66,46 @@
        }
 }
 
+ /**
+  * Update an album
+  *
+  * PUT /:albumId
+  */
+
+  const update = async (req, res) => {
+    const userId = req.params.userId;
+    
+    const user = await new models.User({ id: userId }).fetch({ require: false });
+	if (!user) {
+		debug("User to update was not found. %o", { id: userId });
+		res.status(404).send({
+			status: 'fail',
+			data: 'User Not Found',
+		});
+		return;
+	}
+
+
+    try {
+        const updated_user = await user.save(req.body);
+        debug("Updated user successfully: %O", updated_user);
+
+        res.send({
+            status: 'success',
+            data: {
+                user,
+            },
+        });
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown in database when updating a new user.',
+        });
+        throw error;
+    }
+}
+
  
  
  
@@ -73,7 +113,7 @@
      index,
      show,
      store,
-     //update,
+     update,
      //destroy,
  }
  

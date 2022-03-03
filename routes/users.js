@@ -12,4 +12,7 @@ router.get('/:userId', userController.show);
 /* POST new user */
 router.post('/', userController.store);
 
+/* PUT update album */
+router.put('/:userId', userController.update);
+
 module.exports = router;
