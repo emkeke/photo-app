@@ -39,12 +39,39 @@
          }
      });
  }
+
+ /**
+  * Store new photo
+  *
+  * POST /photo
+  */
+
+  const store = async (req, res) => {
+    try {
+        const photo = await new models.Photo(req.body).save();
+        debug("POST new photo: %o", photo);
+
+        res.send({
+           status: 'success',
+           data: {
+               photo,
+           }
+        });
+       } catch (error) {
+           res.status(500).send({
+               status: 'error',
+               message: 'When creating photo exception thrown in database',
+           });
+           throw error;
+       }
+}
+
  
 
  module.exports = {
     index,
     show,
-    //store,
+    store,
     //update,
     //destroy,
 }

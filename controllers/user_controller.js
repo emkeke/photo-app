@@ -12,12 +12,12 @@
   * GET /
   */
  const index = async (req, res) => {
-     const all_users = await models.User.fetchAll();
+     const users = await models.User.fetchAll();
  
      res.send({
          status: 'success',
          data: {
-             users: all_users
+             users,
          }
      });
  }
@@ -39,13 +39,40 @@
          }
      });
  }
+
+ /**
+  * Store new user
+  *
+  * POST /user
+  */
+
+  const store = async (req, res) => {
+    try {
+        const user = await new models.User(req.body).save();
+        debug("POST new user: %o", user);
+
+        res.send({
+           status: 'success',
+           data: {
+               user,
+           }
+        });
+       } catch (error) {
+           res.status(500).send({
+               status: 'error',
+               message: 'When creating user exception thrown in database',
+           });
+           throw error;
+       }
+}
+
  
  
  
  module.exports = {
      index,
      show,
-     //store,
+     store,
      //update,
      //destroy,
  }

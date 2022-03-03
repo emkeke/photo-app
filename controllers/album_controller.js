@@ -12,12 +12,12 @@
   * GET /
   */
  const index = async (req, res) => {
-     const all_albums = await models.Album.fetchAll();
+     const albums = await models.Album.fetchAll();
  
      res.send({
          status: 'success',
          data: {
-             users: all_albums
+             albums
          }
      });
  }
@@ -39,13 +39,39 @@
          }
      });
  }
+
+ /**
+  * Store new album
+  *
+  * POST /album
+  */
+
+ const store = async (req, res) => {
+     try {
+         const album = await new models.Album(req.body).save();
+         debug("POST new album: %o", album);
+
+         res.send({
+            status: 'success',
+            data: {
+                album,
+            }
+         });
+        } catch (error) {
+            res.status(500).send({
+                status: 'error',
+                message: 'When creating album exception thrown in database',
+            });
+            throw error;
+        }
+ }
  
  
  
  module.exports = {
      index,
      show,
-     //store,
+     store,
      //update,
      //destroy,
  }

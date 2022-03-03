@@ -9,5 +9,8 @@ router.get('/', albumController.index);
 /* GET ALL */
 router.get('/:albumId', albumController.show);
 
+/* POST new album */
+router.post('/', albumController.store);
+
 
 module.exports = router;

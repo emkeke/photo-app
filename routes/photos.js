@@ -9,4 +9,7 @@ router.get('/', photoController.index);
 /* GET ONE */
 router.get('/:photoId', photoController.show);
 
+/* POST new photo */
+router.post('/', photoController.store);
+
 module.exports = router;
