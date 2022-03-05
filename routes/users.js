@@ -14,7 +14,7 @@ router.get('/:userId', userController.show);
 router.post('/', validation_rules_forUser.toCreate_rules, userController.store);
 
 /* PUT update album */
-router.put('/:userId', userController.update);
+router.put('/:userId', validation_rules_forUser.toUpdate_rules, userController.update);
 
 /* Destroy a specific resource */
 router.delete('/:userId', userController.destroy);

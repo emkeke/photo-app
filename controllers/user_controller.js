@@ -77,9 +77,9 @@
 }
 
  /**
-  * Update an album
+  * Update an user
   *
-  * PUT /:albumId
+  * PUT /:userId
   */
 
   const update = async (req, res) => {
@@ -95,9 +95,17 @@
 		return;
 	}
 
+    const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	// only the validated data
+	const validData = matchedData(req);
+
 
     try {
-        const updated_user = await user.save(req.body);
+        const updated_user = await user.save(validData);
         debug("Updated user successfully: %O", updated_user);
 
         res.send({
