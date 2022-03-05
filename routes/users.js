@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user_controller');
-/*const userValidationRules = require('../validation/user')
+// exports the content from validation user
+const validation_rules_forUser = require('../validation/user');
 
 /* GET ALL */
 router.get('/', userController.index);
@@ -10,7 +11,7 @@ router.get('/', userController.index);
 router.get('/:userId', userController.show);
 
 /* POST new user */
-router.post('/', userController.store);
+router.post('/', validation_rules_forUser.toCreate_rules, userController.store);
 
 /* PUT update album */
 router.put('/:userId', userController.update);

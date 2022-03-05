@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const albumController = require('../controllers/album_controller');
-/*const userValidationRules = require('../validation/user')
+const validation_rules_forAlbum = require('../validation/album');
 
 /* GET ALL */
 router.get('/', albumController.index);
@@ -10,7 +10,7 @@ router.get('/', albumController.index);
 router.get('/:albumId', albumController.show);
 
 /* POST new album */
-router.post('/', albumController.store);
+router.post('/', validation_rules_forAlbum.toCreate_rules, albumController.store);
 
 /* PUT update album */
 router.put('/:albumId', albumController.update);

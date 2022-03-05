@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
 
+// Validation 
+//const { body, validation_result } = require('express-validator'); 
+
 // instantiate express
 const app = express();
 

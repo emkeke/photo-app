@@ -4,7 +4,7 @@
 
  const debug = require('debug')('albums:user_controller');
  const models = require('../models');
- //const { matchedData, validationResult } = require('express-validator');
+ const { matchedData, validationResult } = require('express-validator');
  
  /**
   * GET ALL
@@ -47,8 +47,18 @@
   */
 
   const store = async (req, res) => {
+    
+    // check validation 
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	//only the validated data 
+	const validData = matchedData(req);
+
     try {
-        const user = await new models.User(req.body).save();
+        const user = await new models.User(validData).save();
         debug("POST new user: %o", user);
 
         res.send({
