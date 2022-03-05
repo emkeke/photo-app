@@ -13,7 +13,7 @@ router.get('/:albumId', albumController.show);
 router.post('/', validation_rules_forAlbum.toCreate_rules, albumController.store);
 
 /* PUT update album */
-router.put('/:albumId', albumController.update);
+router.put('/:albumId', validation_rules_forAlbum.toUpdate_rules, albumController.update);
 
 /* Destroy a specific resource */
 router.delete('/:albumId', albumController.destroy);

@@ -13,7 +13,7 @@ router.get('/:photoId', photoController.show);
 router.post('/',validation_rules_forPhoto.toCreate_rules, photoController.store);
 
 /* PUT update photo */
-router.put('/:photoId', photoController.update);
+router.put('/:photoId', validation_rules_forPhoto.toUpdate_rules, photoController.update);
 
 /* Destroy a specific resource */
 router.delete('/:photoId', photoController.destroy);

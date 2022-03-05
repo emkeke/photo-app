@@ -94,9 +94,17 @@
 		return;
 	}
 
+    const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	// only the validated data
+	const validData = matchedData(req);
+
 
     try {
-        const updated_album = await album.save(req.body);
+        const updated_album = await album.save(validData);
         debug("Updated album successfully: %O", updated_album);
 
         res.send({

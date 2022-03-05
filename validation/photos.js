@@ -15,7 +15,9 @@ const toCreate_rules = [
 ];
 
 const toUpdate_rules = [
-
+    body('title').optional().isLength({ min: 4 }),
+    body('url').optional().isURL(),
+    body('comment').optional().isLength({ min: 4 }),
 ];
 
 
