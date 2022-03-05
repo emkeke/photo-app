@@ -1,6 +1,6 @@
 /**
  * 
- * Validation rules for user
+ * Validation rules for albums
  */
 
 // conbined from app.js

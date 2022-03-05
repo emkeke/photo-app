@@ -4,7 +4,7 @@
 
  const debug = require('debug')('albums:photo_controller');
  const models = require('../models');
- //const { matchedData, validationResult } = require('express-validator');
+ const { matchedData, validationResult } = require('express-validator');
  
  /**
   * GET ALL
@@ -47,8 +47,17 @@
   */
 
   const store = async (req, res) => {
+    
+    const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	// only the validated data
+	const validData = matchedData(req);
+
     try {
-        const photo = await new models.Photo(req.body).save();
+        const photo = await new models.Photo(validData).save();
         debug("POST new photo: %o", photo);
 
         res.send({
