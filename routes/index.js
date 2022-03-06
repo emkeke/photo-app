@@ -9,7 +9,9 @@ router.get('/', (req, res, next) => {
 
 router.use('/users', require('./users'));
 router.use('/albums', require('./albums'));
-router.use('/photos', require('./photos'));
+//router.use('/photos', require('./photos'));
+router.use('/profile', require('./profile'));
+
 
 // nre user 
 router.post('/', validation_rules_forUser.toCreate_rules);
