@@ -2,9 +2,10 @@ module.exports = (bookshelf) => {
 	return bookshelf.model('Photo', {
 		tableName: 'photos',
 		albums() {
-			return this.belongsTo('Album');
+			return this.belongsToMany('Album');
 		},
-		users() {
+		user() {
+			//?belongstomany eller belongsto
 			return this.belongsTo('User');
 		}
 	});

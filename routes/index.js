@@ -9,8 +9,8 @@ router.get('/', (req, res, next) => {
 
 router.use('/users', require('./users'));
 router.use('/albums', require('./albums'));
-//router.use('/photos', require('./photos'));
-router.use('/profile', require('./profile'));
+router.use('/photos', require('./photos'));
+//router.use('/profile', require('./profile'));
 
 
 // nre user 

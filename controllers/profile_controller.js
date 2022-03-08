@@ -1,7 +1,7 @@
 /**
  * Profile Controller 
  */
-
+/*
  const debug = require('debug')('albums:profile_controller');
  const { matchedData, validationResult } = require('express-validator');
  const models = require('../models');
@@ -12,7 +12,7 @@
   *
   * GET /
   */
-
+/*
 const profile_get = async (req, res) => {
 	res.send({
 		status: 'success',
@@ -27,6 +27,7 @@ const profile_get = async (req, res) => {
  *
  * PUT /
  */
+/*
  const profile_update = async (req, res) => {
 
 	const errors = validationResult(req);
@@ -61,6 +62,7 @@ const profile_get = async (req, res) => {
  *
  * GET /albums
  */
+/*
  const get_albums = async (req, res) => {
 	// get user and also eager-load the books-relation
 	// const user = await new models.User({ id: req.user.id })
@@ -128,3 +130,4 @@ module.exports = {
 	get_albums,
 	add_album,
 }
+*/

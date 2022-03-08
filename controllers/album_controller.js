@@ -29,13 +29,13 @@
   */
  const show = async (req, res) => {
      const album = await new models.Album({ id: req.params.albumId })
-         .fetch({ withRelated: ['photos', 'users'] });
+         .fetch({ withRelated: ['photos'] });
          //{ withRelated: ['photos', 'user'] }
  
      res.send({
          status: 'success',
          data: {
-          album
+            album,
          }
      });
  }

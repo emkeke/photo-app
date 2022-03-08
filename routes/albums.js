@@ -6,7 +6,7 @@ const validation_rules_forAlbum = require('../validation/album');
 /* GET ALL */
 router.get('/', albumController.index);
 
-/* GET ALL */
+/* GET ONE */
 router.get('/:albumId', albumController.show);
 
 /* POST new album */

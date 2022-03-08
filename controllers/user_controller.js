@@ -29,7 +29,7 @@
   */
  const show = async (req, res) => {
      const user = await new models.User({ id: req.params.userId })
-         .fetch();
+         .fetch({ withRelated: ['albums', 'photos'] });
          //{ withRelated: ['albums'] }
  
      res.send({

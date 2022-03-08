@@ -25,17 +25,17 @@
  /**
   * GET ONE
   *
-  * GET /:albumId
+  * GET /:photoId
   */
  const show = async (req, res) => {
      const photo = await new models.Photo({ id: req.params.photoId })
-         .fetch();
+         .fetch({ withRelated: ['albums', 'user'] });
          //{ withRelated: ['album', 'user'] }
  
      res.send({
          status: 'success',
          data: {
-             photo,
+             photo
          }
      });
  }

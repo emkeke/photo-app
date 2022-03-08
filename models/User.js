@@ -2,10 +2,10 @@
 	return bookshelf.model('User', {
 		tableName: 'users',
 		albums() {
-			return this.belongsToMany('Album');
+			return this.hasMany('Album');
 		},
 		photos() {
-			return this.belongsToMany('Photos');
+			return this.hasMany('Photo');
 		}
 	});
 };
