@@ -11,14 +11,14 @@ const User = require('../models/User');
 
 const toCreate_rules = [ 
    body('title').exists().isLength({ min: 4 }),
-   body('user_id').exists().bail().custom(async value => {
+   /*body('user_id').exists().bail().custom(async value => {
     const user = await new models.User({ id: value }).fetch({ require: false });
     if (!user) {
         return Promise.reject(`User with ID ${value} does not exist.`);
     }
 
     return Promise.resolve();
-}),
+}),*/
 ];
 
 const toUpdate_rules = [

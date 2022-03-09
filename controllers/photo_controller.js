@@ -56,6 +56,9 @@
 	// only the validated data
 	const validData = matchedData(req);
 
+    //validData.user_id = req.get(id);
+    //validData.user_id = user.get(id);
+
     try {
         const photo = await new models.Photo(validData).save();
         debug("POST new photo: %o", photo);
