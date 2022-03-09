@@ -1,3 +1,8 @@
+/**
+ * INDEX ROUTER
+ * 
+ */
+const auth =require('../middlewares/auth');
 const express = require('express');
 const router = express.Router();
 //const validation_rules_forUser = require('../validation/user');
@@ -8,10 +13,11 @@ router.get('/', (req, res, next) => {
 	res.send({ success: true, data: { msg: 'oh, hi' }});
 });
 
-router.use('/users', require('./users'));
+
 router.use('/albums', require('./albums'));
 router.use('/photos', require('./photos'));
-router.use('/profile', require('./profile'));
+router.use('/profile', auth.basic, require('./profile'));
+router.use('/users', require('./users'));
 
 
 // nre user 

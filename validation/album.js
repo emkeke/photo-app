@@ -23,7 +23,7 @@ const toCreate_rules = [
 
 const toUpdate_rules = [
     body('title').optional().isLength({ min: 4 }),
-    body('user_id').exists().bail().custom(async value => {
+    /*body('user_id').exists().bail().custom(async value => {
      const user = await new models.User({ id: value }).fetch({ require: false });
      if (!user) {
          return Promise.reject(`User with ID ${value} does not exist.`);
@@ -31,6 +31,7 @@ const toUpdate_rules = [
  
      return Promise.resolve();
  }),
+ */
 ];
 
 
