@@ -2,7 +2,7 @@
  * Middleware
  */
 
- //const bcrypt = require('bcrypt');
+ const bcrypt = require('bcrypt');
  const debug = require('debug')('albums:auth');
  const { User } = require('../models');
  
@@ -41,12 +41,21 @@
     const [email, password] = decodedPayload.split(':');
 
 
-    const user = await new User({ email, password }).fetch({ require: false });
+    const user = await new User({ email }).fetch({ require: false });
      if (!user) {
         return res.status(401).send({
             status: 'fail',
             data: 'Authorization failed',
         });
+     }
+     const hash = user.get('password');
+ 
+     const submitted = await bcrypt.compare(password, hash);
+     if (!submitted) {
+         return res.status(401).send({
+             status: 'fail',
+             data: 'Authorization failed',
+         });
      }
 
      req.user = user;
@@ -58,21 +67,3 @@
  module.exports = {
      basic,
  }
- 
- /*      
- 
-     const hash = user.get('password');
- 
-     // hash the incoming cleartext password using the salt from the db
-     // and compare if the generated hash matches the db-hash
-     const result = await bcrypt.compare(password, hash);
-     if (!result) {
-         return res.status(401).send({
-             status: 'fail',
-             data: 'Authorization failed',
-         });
-     }
- 
-     // finally, attach user to request
-     req.user = user;
-      */

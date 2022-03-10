@@ -22,20 +22,17 @@
   */
  const add_album_rules = [
     body('title').exists().isLength({ min: 4 }),
-    /*
-    body('album_id').exists().bail().custom(async value => {
-         const album = await new models.Album({ id: value }).fetch({ require: false });
-         if (!album) {
-             return Promise.reject(`Album with ID ${value} does not exist.`);
-         }
- 
-         return Promise.resolve();
-     }),
-     */
+ ];
+
+ const add_photo_rules = [
+    body('title').exists().isLength({ min: 4 }),
+    body('url').exists().isURL(),
+    body('comment').optional().isLength({ min: 4 }),  
  ];
  
  module.exports = {
      add_album_rules,
+     add_photo_rules,
      toUpdate_rules,
  }
  

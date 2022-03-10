@@ -1,11 +1,10 @@
 /**
  * Profile Controller 
  */
-
- const debug = require('debug')('albums:profile_controller');
- const { matchedData, validationResult } = require('express-validator');
- const models = require('../models');
-
+const bcrypt = require('bcrypt');
+const debug = require('debug')('albums:profile_controller');
+const { matchedData, validationResult } = require('express-validator');
+const models = require('../models');
 
  /**
   * GET user's profile
@@ -14,8 +13,6 @@
   */
 
 const profile_get = async (req, res) => {
-
-	console.log('Hello from profileController', req.user);
 
 	res.send({
 		status: 'success',
@@ -41,6 +38,20 @@ const profile_get = async (req, res) => {
 	}
 
 	const validData = matchedData(req);
+
+	if (validData.password) {
+		try {
+			const hashedpassword = await bcrypt.hash(validData.password, 10);
+			validData.password = hashedpassword; 
+	 
+		 } catch (error) {
+			 res.status(500).send({
+				 status: 'error',
+				 message: 'Exception thrown when hashing the password.',
+			 });
+			 throw error;
+		 }
+	}
 
 	try {
 		const updated_user = await req.user.save(validData);
@@ -71,24 +82,56 @@ const profile_get = async (req, res) => {
  */
 
  const get_albums = async (req, res) => {
-	//const userId = req.user.id;
-
-	//const user = await new models.User({ id: req.user.id })
-	//.fetch({ withRelated: ['albums', 'photos'] });
 
 	await req.user.load('albums');
+	//await req.user.load('photos');
+
+	res.status(200).send({
+		status: 'success',
+		data: {
+			albums: req.user.related('albums'),
+		}
+		
+	});
+ }
+
+
+ const get_photos = async (req, res) => {
+
 	await req.user.load('photos');
 
 	res.status(200).send({
 		status: 'success',
 		data: {
-			//albums: user.related('albums')
-			albums: req.user.related('albums'),
 			photos: req.user.related('photos'),
 		}
 		
 	});
  }
+
+/***
+ * 
+ * GET album by ID
+ */
+
+const album_byID = async (req, res) => {
+	const album = await models.Album({ id: req.params.albumId })
+	.fetch({ withRelated: ['albums'] });
+
+	res.status(200).send({
+		status: 'success',
+		data: {
+			album,
+		}
+		
+	});
+
+}
+
+/**
+ * 
+ * ADD an album to profile
+ */
 
 const add_album = async (req, res) => {
 	const errors = validationResult(req);
@@ -96,27 +139,8 @@ const add_album = async (req, res) => {
 		return res.status(422).send({ status: 'fail', data: errors.array() });
 	}
 
-	/* KANKSE HA KVAR????
-	const albums = req.user.related('albums');
-
-	let already_exists = false;
-	albums.forEach(albums => {
-		if (albums.id == validData.album_id) {
-			exists = true;
-		}
-	});
-
-	if (exists) {
-		res.send({
-            status: 'fail',
-            data: 'albums already exists'
-	}
-	*/
-
-	// ONLY the validated data
 	const validData = matchedData(req);
 	
-	// attach validData with user_id
 	validData.user_id = req.user.get('id');
 
      try {
@@ -139,10 +163,48 @@ const add_album = async (req, res) => {
 	
 }
 
+/**
+ * 
+ * ADD a photo to a profile
+ */
+
+
+ const add_photo = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	const validData = matchedData(req);
+	
+	validData.user_id = req.user.get('id');
+
+     try {
+        photoAdded = await new models.Photo(validData).save();
+        debug("POST new photo: %o", photoAdded);
+
+         res.send({
+            status: 'success',
+            data: {
+                photoAdded,
+            }
+         });
+        } catch (error) {
+            res.status(500).send({
+                status: 'error',
+                message: 'When creating photo exception thrown in database',
+            });
+            throw error;
+        }
+	
+}
 
 module.exports = {
 	add_album,
+	add_photo,
 	get_albums,
+	get_photos,
+	album_byID,
     profile_get,
 	profile_update,
 }

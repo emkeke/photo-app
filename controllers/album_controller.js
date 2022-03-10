@@ -52,8 +52,6 @@
 	if (!errors.isEmpty()) {
 		return res.status(422).send({ status: 'fail', data: errors.array() });
 	}
-
-	// only the validated data
 	const validData = matchedData(req);
 
      try {

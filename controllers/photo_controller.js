@@ -53,11 +53,7 @@
 		return res.status(422).send({ status: 'fail', data: errors.array() });
 	}
 
-	// only the validated data
 	const validData = matchedData(req);
-
-    //validData.user_id = req.get(id);
-    //validData.user_id = user.get(id);
 
     try {
         const photo = await new models.Photo(validData).save();

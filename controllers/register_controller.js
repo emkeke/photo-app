@@ -1,7 +1,7 @@
 /**
  * Register Controller
  */
-/*
+
  const bcrypt = require('bcrypt');
  const debug = require('debug')('books:register_controller');
  const { matchedData, validationResult } = require('express-validator');
@@ -12,23 +12,19 @@
   *
   * POST /
   */
- /*
+ 
  const register = async (req, res) => {
-     // check for any validation errors
      const errors = validationResult(req);
      if (!errors.isEmpty()) {
          return res.status(422).send({ status: 'fail', data: errors.array() });
      }
- 
-     // get only the validated data from the request
      const validData = matchedData(req);
  
      console.log("The validated data:", validData);
- 
-     // generate a hash of `validData.password`
-     // and overwrite `validData.password` with the generated hash
+
      try {
-         validData.password = await bcrypt.hash(validData.password, 10);
+        const hashedpassword = await bcrypt.hash(validData.password, 10);
+        validData.password = hashedpassword; 
  
      } catch (error) {
          res.status(500).send({
@@ -45,7 +41,7 @@
          res.send({
              status: 'success',
              data: {
-                 user,
+                user: req.user,
              },
          });
  
@@ -61,4 +57,3 @@
  module.exports = {
      register,
  }
- */
