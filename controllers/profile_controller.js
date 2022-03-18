@@ -109,24 +109,6 @@ const profile_get = async (req, res) => {
 	});
  }
 
-/***
- * 
- * GET album by ID
- */
-
-const album_byID = async (req, res) => {
-	const album = await models.Album({ id: req.params.albumId })
-	.fetch({ withRelated: ['albums'] });
-
-	res.status(200).send({
-		status: 'success',
-		data: {
-			album,
-		}
-		
-	});
-
-}
 
 /**
  * 
