@@ -87,21 +87,28 @@ const index = async (req, res) => {
   */
 
  const update = async (req, res) => {
-    const photoId = req.params.photoId;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({
+            status: 'fail',
+            data: errors.array() });
+    }
 
-    const photo = await new models.Photo({ id: photoId }).fetch({ require: false });
-	if (!photo) {
-		debug("Photo to update was not found. %o", { id: photoId });
-		res.status(404).send({
+    const validData = matchedData(req);
+
+    const user = await models.User.fetchById(req.user.id, { withRelated: ['photos'] });
+    const userPhotos = user.related('photos');
+
+    const photo = userPhotos.find(photo => photo.id == req.params.photoId);
+    if (!photo) {
+		return res.status(404).send({
 			status: 'fail',
-			data: 'Photo Not Found',
+			data: "Photo could not be found",
 		});
-		return;
 	}
 
-
     try {
-        const updated_photo = await photo.save(req.body);
+        const updated_photo = await photo.save(validData);
         debug("Updated photo successfully: %O", updated_photo);
 
         res.send({
@@ -120,26 +127,10 @@ const index = async (req, res) => {
     }
 }
 
-/**
- * Destroy/ delete and specific photo
- *
- * DELETE /:photoId
- */
- const destroy = (req, res) => {
-    res.status(405).send({
-        status: 'fail',
-        message: 'Method Not Allowed.',
-    });
-}
- 
- 
-
- 
 
  module.exports = {
     index,
     show,
     store,
     update,
-    destroy,
 }
