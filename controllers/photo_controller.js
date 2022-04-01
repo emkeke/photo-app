@@ -30,7 +30,7 @@ const index = async (req, res) => {
  const show = async (req, res) => {
 
     const user = await models.User.fetchById(req.user.id, { withRelated: ['photos'] });
-    
+
     const userPhotos = user.related('photos');
 
     const photo = userPhotos.find(photo => photo.id == req.params.photoId);
@@ -61,15 +61,15 @@ const index = async (req, res) => {
 
 	const validData = matchedData(req);
 
+    validData.user_id = req.user.id;
+
     try {
         const photo = await new models.Photo(validData).save();
         debug("POST new photo: %o", photo);
 
-        res.send({
+        res.status(200).send({
            status: 'success',
-           data: {
-               photo,
-           }
+           data: photo
         });
        } catch (error) {
            res.status(500).send({
