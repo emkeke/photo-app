@@ -12,14 +12,14 @@
   * GET /
   */
  const index = async (req, res) => {
-     const all_photos = await models.Photo.fetchAll();
+     
+    // Lazy load 
+    const user = await new models.User({ id: req.user.id }).fetch({ withRelated: ['photos']});
  
-     res.send({
-         status: 'success',
-         data: {
-             photos: all_photos
-         }
-     });
+    res.status(200).send({
+       status: 'success',
+       data: user.related('photos'),
+    })
  }
  
  /**
