@@ -11,7 +11,7 @@
   *
   * GET /
   */
- const index = async (req, res) => {
+const index = async (req, res) => {
      
     // Lazy load 
     const user = await new models.User({ id: req.user.id }).fetch({ withRelated: ['photos']});
@@ -20,7 +20,7 @@
        status: 'success',
        data: user.related('photos'),
     })
- }
+}
  
  /**
   * GET ONE
