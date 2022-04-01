@@ -28,16 +28,22 @@ const index = async (req, res) => {
   * GET /:photoId
   */
  const show = async (req, res) => {
-     const photo = await new models.Photo({ id: req.params.photoId })
-         .fetch({ withRelated: ['albums', 'user'] });
-         //{ withRelated: ['album', 'user'] }
- 
-     res.send({
-         status: 'success',
-         data: {
-             photo
-         }
-     });
+
+    const user = await models.User.fetchById(req.user.id, { withRelated: ['photos'] });
+    
+    const userPhotos = user.related('photos');
+
+    const photo = userPhotos.find(photo => photo.id == req.params.photoId);
+    if (!photo) {
+		return res.status(404).send({
+			status: 'fail',
+			data: "Photo could not be found",
+		});
+	}
+    res.status(200).send({
+        status: 'success',
+        data: photo
+    });
  }
 
  /**
