@@ -15,7 +15,5 @@ router.post('/',validation_rules_forPhoto.toCreate_rules, photoController.store)
 /* PUT update photo */
 router.put('/:photoId', validation_rules_forPhoto.toUpdate_rules, photoController.update);
 
-/* Destroy a specific resource */
-router.delete('/:photoId', photoController.destroy);
 
 module.exports = router;

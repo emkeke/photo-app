@@ -18,5 +18,8 @@ router.put('/:albumId', validation_rules_forAlbum.toUpdate_rules, albumControlle
 /* Destroy a specific resource */
 router.delete('/:albumId', albumController.destroy);
 
+/* POST new photo to album */
+router.post('/:albumId/photos', validation_rules_forAlbum.addPhoto, albumController.addPhoto);
+
 
 module.exports = router;

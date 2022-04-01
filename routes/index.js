@@ -18,7 +18,6 @@ router.use('/albums', require('./albums'));
 router.use('/photos', require('./photos'));
 router.use('/profile', auth.basic, require('./profile'));
 
-
 router.post('/register', validation_rules_forUser.toCreate_rules, registerController.register);
 
 module.exports = router;
