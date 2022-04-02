@@ -1,14 +1,15 @@
-
 module.exports = (bookshelf) => {
 	return bookshelf.model('Album', {
 		tableName: 'albums',
-		photos() {
-			//?belongstomany | hasMany
-			return this.belongsToMany('Photo');
+        photos() {
+            return this.belongsToMany('Photo');
+        },
+        users() {
+            return this.belongsTo('User');
+        }, 
+	}, {
+        async fetchById(id, fetchOptions = {}) {
+			return await new this({ id }).fetch(fetchOptions);
 		},
-		users() {
-			return this.belongsTo('User');
-		}
-	});
-}
-
+    });
+};
