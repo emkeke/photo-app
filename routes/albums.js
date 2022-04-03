@@ -19,7 +19,7 @@ router.put('/:albumId', validation_rules_forAlbum.toUpdate_rules, albumControlle
 router.delete('/:albumId', albumController.destroy);
 
 /* POST new photo to album */
-router.post('/:albumId/photos', validation_rules_forAlbum.addPhoto, albumController.addPhoto);
+router.post('/:albumId/photos', validation_rules_forAlbum.add_Photo, albumController.add_Photo);
 
 
 module.exports = router;
