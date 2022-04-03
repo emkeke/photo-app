@@ -17,13 +17,8 @@ const toUpdate_rules = [
     body('title').optional().isLength({ min: 4 }),
 ];
 
-const addPhoto = [
-    body('photo_id').exists().isInt(),
-];
-
 
 module.exports = {
     toCreate_rules,
     toUpdate_rules,
-    addPhoto
 }

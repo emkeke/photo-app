@@ -120,3 +120,11 @@ const update = async (req, res) => {
             status: 'success',
             data: updated_album
         });
+    }catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown in database when updating an album'
+        });
+        throw error;
+    }
+}
