@@ -113,7 +113,7 @@ const index = async (req, res) => {
 
         res.status(200).send({
             status: 'success',
-            data: photo,
+            data: updatePhoto,
         });
 
     } catch (error) {

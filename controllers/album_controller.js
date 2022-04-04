@@ -131,9 +131,49 @@ const update = async (req, res) => {
     }
 }
 
+const addPhoto = async (req, res) => {
+    const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+    const validData = matchedData(req);
+
+    const user = await models.User.fetchById(req.user.id, { withRelated: ['albums'] });
+
+    const userAlbum = user.related('albums');
+
+    const album = userAlbum.find(album => album.id == req.params.albumId);
+
+    if (!album) {
+        return res.status(404).send({
+            status: 'fail',
+            data: "Album could not be found",
+        });
+    }
+
+    try {
+        const addPhotos = await album.save(validData);
+        debug("Added photo successfully: %O", addPhotos);
+
+        res.status(200).send({
+            status: 'success',
+            data: null,
+        });
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown in database when updating an album'
+        });
+        throw error;
+    }
+}
+
 module.exports = {
 	index,
 	show,
 	store,
-	update
+	update,
+    addPhoto
 }

@@ -1,5 +1,5 @@
 /**
- * Register Controller ??? Or only user controller??
+ * User Controller 
  */
 
  const bcrypt = require('bcrypt');
@@ -13,45 +13,46 @@
   * POST /
   */
  
- const register = async (req, res) => {
+const register = async (req, res) => {
 
-     const errors = validationResult(req);
-     if (!errors.isEmpty()) {
-         return res.status(422).send({ status: 'fail', data: errors.array() });
-     }
-     const validData = matchedData(req);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ status: 'fail', data: errors.array() });
+    }
+
+    const validData = matchedData(req);
  
-     console.log("The validated data:", validData);
+    //console.log("The validated data:", validData);
 
-     try {
+    try {
         validData.password = await bcrypt.hash(validData.password, 10);
  
-     } catch (error) {
-         res.status(500).send({
-             status: 'error',
-             message: 'Exception thrown when hashing the password.',
-         });
-         throw error;
-     }
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown when hashing the password.',
+        });
+        throw error;
+    }
  
-     try {
-         const user = await new models.User(validData).save();
-         debug("Created new user successfully: %O", user);
+    try {
+        const user = await new models.User(validData).save();
+        debug("Created new user successfully: %O", user);
  
-         res.status(200).send({
-             status: 'success',
-             data: user
-         });
+        res.status(200).send({
+            status: 'success',
+            data: user
+        });
  
-     } catch (error) {
-         res.status(500).send({
-             status: 'error',
-             message: 'Exception thrown in database when creating a new user.',
-         });
-         throw error;
-     }
- }
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'Exception thrown in database when creating a new user.',
+        });
+        throw error;
+    }
+}
  
- module.exports = {
-     register,
- }
+module.exports = {
+    register,
+}
