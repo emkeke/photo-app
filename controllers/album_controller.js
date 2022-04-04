@@ -72,10 +72,11 @@ const show = async (req, res) => {
          const album = await new models.Album(validData).save();
          debug("POST new album: %o", album);
 
-         res.send({
+         res.status(200).send({
             status: 'success',
             data: album
          });
+
         } catch (error) {
             res.status(500).send({
                 status: 'error',
@@ -102,9 +103,9 @@ const update = async (req, res) => {
 	const validData = matchedData(req);
 
     const user = await models.User.fetchById(req.user.id, { withRelated: ['albums'] });
-    const userAlbums = user.related('albums');
+    const userAlbum = user.related('albums');
 
-    const album = userAlbums.find(album => album.id == req.params.albumId);
+    const album = userAlbum.find(album => album.id == req.params.albumId);
     if (!album) {
         return res.status(404).send({
             status: 'fail',
@@ -113,13 +114,14 @@ const update = async (req, res) => {
     }
 
     try {
-        const updated_album = await album.save(validData);
-        debug("Updated album successfully: %O", updated_album);
+        const updateAlbum = await album.save(validData);
+        debug("Updated album successfully: %O", updateAlbum);
 
-        res.send({
+        res.status(200).send({
             status: 'success',
-            data: updated_album
+            data: updateAlbum
         });
+
     }catch (error) {
         res.status(500).send({
             status: 'error',
