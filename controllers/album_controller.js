@@ -6,17 +6,17 @@
  const models = require('../models');
  const { matchedData, validationResult } = require('express-validator');
  
- /**
-  * GET ALL 
-  *
-  * GET /
-  */
+/**
+* GET ALL 
+*
+*/
 const index = async (req, res) => {
     
     // Lazy load
     await req.user.load('albums');
- 
-    res.send({
+    
+    // send success and require the user albums
+    res.status(200).send({
         status: 'success',
         data: {
             albums: req.user.related('albums')
