@@ -8,13 +8,13 @@
  const { body } = require('express-validator');
  
  
- const toCreate_rules = [ 
+ const toCreateRules = [ 
     body('title').exists().isLength({ min: 4 }),
     body('url').exists().isURL(),
     body('comment').optional().isLength({ min: 4 }),
  ];
  
- const toUpdate_rules = [
+ const toUpdateRules = [
      body('title').optional().isLength({ min: 4 }),
      body('url').optional().isURL(),
      body('comment').optional().isLength({ min: 4 }),
@@ -22,6 +22,6 @@
  
  
  module.exports = {
-     toCreate_rules,
-     toUpdate_rules,
+     toCreateRules,
+     toUpdateRules,
  }

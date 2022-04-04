@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const photoController = require('../controllers/photo_controller');
-const validation_rules_forPhoto = require('../validation/photos');
+const validationRulesPhoto = require('../validation/photo');
 
 /* GET ALL */
 router.get('/', photoController.index);
@@ -10,10 +10,10 @@ router.get('/', photoController.index);
 router.get('/:photoId', photoController.show);
 
 /* POST new photo */
-router.post('/',validation_rules_forPhoto.toCreate_rules, photoController.store);
+router.post('/',validationRulesPhoto.toCreateRules, photoController.store);
 
 /* PUT update photo */
-router.put('/:photoId', validation_rules_forPhoto.toUpdate_rules, photoController.update);
+router.put('/:photoId', validationRulesPhoto.toUpdateRules, photoController.update);
 
 
 module.exports = router;
