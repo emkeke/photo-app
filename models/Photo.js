@@ -1,3 +1,8 @@
+/**
+ * 
+ * Photo models
+ */
+
 
 module.exports = (bookshelf) => {
 	return bookshelf.model('Photo', {

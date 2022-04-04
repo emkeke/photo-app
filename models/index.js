@@ -1,3 +1,8 @@
+/**
+ * Index models
+ */
+
+
 // Setting up the database connection
 const knex = require('knex')({
 	debug: true,

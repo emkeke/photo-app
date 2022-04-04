@@ -1,3 +1,8 @@
+/**
+ * 
+ * User models
+ */
+
 module.exports = (bookshelf) => {
 	return bookshelf.model('User', {
 		tableName: 'users',
