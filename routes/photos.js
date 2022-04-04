@@ -1,3 +1,7 @@
+/**
+ * PHOTO ROUTER
+ */
+
 const express = require('express');
 const router = express.Router();
 const photoController = require('../controllers/photo_controller');

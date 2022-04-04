@@ -5,7 +5,7 @@
  const auth =require('../middlewares/auth');
  const express = require('express');
  const router = express.Router();
- const validation_rules_forUser = require('../validation/user');
+ const validationRulesUser = require('../validation/user');
  const registerController = require('../controllers/register_controller')
  
  /* GET / */
@@ -18,6 +18,6 @@
  router.use('/photos', require('./photos'));
  router.use('/profile', auth.basic, require('./profile'));
  
- router.post('/register', validation_rules_forUser.toCreate_rules, registerController.register);
+ router.post('/register', validationRulesUser.toCreateRules, registerController.register);
  
  module.exports = router;

@@ -30,9 +30,9 @@ const index = async (req, res) => {
 
     const user = await models.User.fetchById(req.user.id, { withRelated: ['photos'] });
 
-    const userPhotos = user.related('photos');
+    const userPhoto = user.related('photos');
 
-    const photo = userPhotos.find(photo => photo.id == req.params.photoId);
+    const photo = userPhoto.find(photo => photo.id == req.params.photoId);
     if (!photo) {
 		return res.status(404).send({
 			status: 'fail',
@@ -70,13 +70,14 @@ const index = async (req, res) => {
            status: 'success',
            data: photo
         });
-       } catch (error) {
-           res.status(500).send({
-               status: 'error',
-               message: 'When creating photo exception thrown in database',
-           });
-           throw error;
-       }
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            message: 'When creating photo exception thrown in database',
+        });
+        throw error;
+    }
 }
 
 /**
@@ -96,9 +97,9 @@ const index = async (req, res) => {
     const validData = matchedData(req);
 
     const user = await models.User.fetchById(req.user.id, { withRelated: ['photos'] });
-    const userPhotos = user.related('photos');
+    const userPhoto = user.related('photos');
 
-    const photo = userPhotos.find(photo => photo.id == req.params.photoId);
+    const photo = userPhoto.find(photo => photo.id == req.params.photoId);
     if (!photo) {
 		return res.status(404).send({
 			status: 'fail',
@@ -107,14 +108,12 @@ const index = async (req, res) => {
 	}
 
     try {
-        const updated_photo = await photo.save(validData);
-        debug("Updated photo successfully: %O", updated_photo);
+        const updatePhoto = await photo.save(validData);
+        debug("Updated photo successfully: %O", updatePhoto);
 
-        res.send({
+        res.status(200).send({
             status: 'success',
-            data: {
-                photo,
-            },
+            data: photo,
         });
 
     } catch (error) {
