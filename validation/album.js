@@ -9,16 +9,16 @@ const models = require('../models');
 const Album = require('../models/Album');
 const User = require('../models/User');
 
-const toCreate_rules = [ 
+const toCreateRules = [ 
    body('title').exists().isLength({ min: 4 }),
 ];
 
-const toUpdate_rules = [
+const toUpdateRules = [
     body('title').optional().isLength({ min: 4 }),
 ];
 
 
 module.exports = {
-    toCreate_rules,
-    toUpdate_rules,
+    toCreateRules,
+    toUpdateRules,
 }

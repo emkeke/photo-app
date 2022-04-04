@@ -128,3 +128,10 @@ const update = async (req, res) => {
         throw error;
     }
 }
+
+module.exports = {
+	index,
+	show,
+	store,
+	update
+}
