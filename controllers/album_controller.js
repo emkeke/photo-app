@@ -10,7 +10,7 @@
 * GET ALL 
 *
 */
-const index = async (req, res) => {
+const showAll = async (req, res) => {
     
     // Lazy load
     await req.user.load('albums');
@@ -195,7 +195,7 @@ const addPhoto = async (req, res) => {
 }
 
 module.exports = {
-	index,
+	showAll,
 	show,
 	store,
 	update,

@@ -2,6 +2,7 @@
  * 
  * Validation rules for user
  */
+
  const { body } = require('express-validator');
 
  const toCreateRules = [ 

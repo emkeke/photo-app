@@ -10,7 +10,7 @@
 * GET ALL
 *
 */
-const index = async (req, res) => {
+const showAll = async (req, res) => {
      
     // Lazy load
     const user = await new models.User({ id: req.user.id }).fetch({ withRelated: ['photos']});
@@ -127,7 +127,7 @@ const index = async (req, res) => {
 
 
  module.exports = {
-    index,
+    showAll,
     show,
     store,
     update,

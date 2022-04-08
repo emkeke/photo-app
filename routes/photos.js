@@ -8,7 +8,7 @@ const photoController = require('../controllers/photo_controller');
 const validationRulesPhoto = require('../validation/photo');
 
 /* GET ALL */
-router.get('/', photoController.index);
+router.get('/', photoController.showAll);
 
 /* GET ONE */
 router.get('/:photoId', photoController.show);

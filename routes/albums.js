@@ -8,7 +8,7 @@ const albumController = require('../controllers/album_controller');
 const validationRulesAlbum = require('../validation/album');
 
 /* GET ALL */
-router.get('/', albumController.index);
+router.get('/', albumController.showAll);
 
 /* GET ONE */
 router.get('/:albumId', albumController.show);
