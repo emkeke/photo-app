@@ -22,5 +22,4 @@ router.put('/:albumId', validationRulesAlbum.toUpdateRules, albumController.upda
 /* POST new photo to album */
 router.post('/:albumId/photos', validationRulesAlbum.addPhoto, albumController.addPhoto);
 
-
 module.exports = router;

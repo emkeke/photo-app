@@ -1,6 +1,5 @@
 /**
- * 
- * Album models
+ * Album model 🗂
  */
 
 module.exports = (bookshelf) => {

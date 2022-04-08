@@ -1,6 +1,5 @@
 /**
- * 
- * User models
+ * User model 
  */
 
 module.exports = (bookshelf) => {

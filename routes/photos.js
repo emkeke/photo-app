@@ -14,10 +14,9 @@ router.get('/', photoController.showAll);
 router.get('/:photoId', photoController.show);
 
 /* POST new photo */
-router.post('/',validationRulesPhoto.toCreateRules, photoController.store);
+router.post('/', validationRulesPhoto.toCreateRules, photoController.store);
 
 /* PUT update photo */
 router.put('/:photoId', validationRulesPhoto.toUpdateRules, photoController.update);
-
 
 module.exports = router;

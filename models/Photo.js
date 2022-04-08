@@ -1,10 +1,8 @@
 /**
- * 
- * Photo models
+ * Photo model 📷
  */
 
-
-module.exports = (bookshelf) => {
+ module.exports = (bookshelf) => {
 	return bookshelf.model('Photo', {
 		tableName: 'photos',
         albums() {
